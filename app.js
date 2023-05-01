@@ -3,12 +3,14 @@ const mongoose = require("mongoose")
 require("dotenv/config")
 const blogRoute = require("./Routes/blogRoute")
 const userRoute = require("./Routes/userRoutes")
+const cors = require('cors')
 
 // initilize
 const app = express()
 
 // middleware
 app.use(express.json())
+app.use('cors')
 
 // bydefault get
 app.get("/",(req,res)=>{
