@@ -1,31 +1,42 @@
-const express = require("express")
-const mongoose = require("mongoose")
-require("dotenv/config")
-const blogRoute = require("./Routes/blogRoute")
-const userRoute = require("./Routes/userRoutes")
+// import packages
+const express = require('express')
+const mongoose = require('mongoose')
 const cors = require('cors')
+require('dotenv/config')
 
-// initilize
+// adding routers
+const incoRouter = require('./Routers/incoRouter')
+const expRouter = require('./Routers/expRouter')
+const legerRouter = require('./Routers/legerRouter')
+
+
+// inilization
 const app = express()
 
-// middleware
+
+// midd
 app.use(express.json())
 app.use(cors())
 
-// bydefault get
-app.get("/",(req,res)=>{
-    res.send("home")
+// default get
+app.get('/', (req, res) => {
+    res.send('This is Backend page')
 })
 
-app.use("/api/blog",blogRoute)
-app.use("/api/user",userRoute)
+// url
+app.use('/api/income', incoRouter)
+app.use('/api/expence', expRouter)
+app.use('/api/leger', legerRouter)
 
-// connection
+// listen
 app.listen(process.env.PORT)
+
+
+// connection string
 async function main() {
-    const res = await mongoose.connect(process.env.DB,{useNewUrlParser: true,
-        useUnifiedTopology: true})
-        const data = res.default
-        console.log(data.STATES['1']);
+    const res = await mongoose.connect(process.env.DB)
+    const data = res.default
+    console.log(data.STATES['1']);
 }
 main()
+
